@@ -3,13 +3,19 @@ import React, { useEffect, useState } from "react";
 import Pokemon from "./Pokemon";
 
 function PokeList() {
-  const [val, setVal] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [pokemonList, setPokemonList] = useState([]);
-
+  const [pokedexurl,setPokedexurl]=useState("https://pokeapi.co/api/v2/pokemon");
+  const [nexturl,setNexturl] = useState();
+  const [preurl , setPrevurl] = useState();
   async function downloadPokemons() {
-    const POKEDEX_URL = "https://pokeapi.co/api/v2/pokemon"    // Api link 
-    const response = await axios.get(POKEDEX_URL);  // downloads list of 20 pokemons 
+  // Api link 
+  setIsLoading(true)
+    const response = await axios.get(pokedexurl);  // downloads list of 20 pokemons 
+    console.log(response.data)
+    setNexturl(response.data.next)
+    setPrevurl(response.data.previous
+    )
     const pokemonResult = response.data.results; 
     // console.log(pokemonResult);
     const pokemonResultPromise = pokemonResult.map((pokemon) =>
@@ -32,18 +38,17 @@ function PokeList() {
   }
   useEffect(() => {
     downloadPokemons();
-  }, [  ]);
-  function decrement() {
-    setVal(val - 1);
-  }
-  function increment() {
-    setVal(val + 1);
-  }
+  }, [ pokedexurl ]);
+
   return (
     <>
-   
+   <div className="flex flex-wrap mt-[60px] ">
       {(isLoading) ? "loading ....." : pokemonList.map((p) => <Pokemon name = {p.name} image = {p.image} key={p.id} />)}
-   
+      </div>
+      <div>
+        <button className="w-[130px] h-[50px] bg-gray-300  mx-[50px] my-[50px] hover:bg-[#f5f5dc] border-[8px] border-black-300 border-double" disabled={preurl == null} onClick={() => setPokedexurl(preurl)}>Prev</button>
+        <button className="w-[130px] h-[50px] bg-gray-300 mx-[50px] my-[50px] hover:bg-[#f5f5dc]  border-[8px] border-black-300 border-double " disabled={nexturl === null} onClick={() => setPokedexurl(nexturl)}>Next</button>
+      </div>
     </>
   );
 }

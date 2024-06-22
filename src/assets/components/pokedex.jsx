@@ -5,8 +5,9 @@ import Search from './Search'
 function Pokedex() {
   return (
    
-    <div>
-      <div className='text-blue-600'>Pokedex</div>
+    <div className='flex flex-col justify-center items-center' >
+
+      <div className='text-[80px]'>Pokedex</div>
        <Search/>
       <PokeList/>
       </div>
