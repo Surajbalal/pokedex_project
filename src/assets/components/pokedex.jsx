@@ -7,7 +7,6 @@ function Pokedex() {
    
     <div className='flex flex-col justify-center items-center' >
 
-      <div className='text-[80px]'>Pokedex</div>
        <Search/>
       <PokeList/>
       </div>

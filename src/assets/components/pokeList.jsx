@@ -29,7 +29,7 @@ function PokeList() {
         id : pokemon.id ,
         name: pokemon.name,
         image: (pokemon.sprites.other) ? pokemon.sprites.other.dream_world.front_default : pokemon.sprites.front_shiny ,   
-        types: pokemon.types,
+        types: pokemon.types
       };
     });
     console.log(pokeListResult);
@@ -43,7 +43,7 @@ function PokeList() {
   return (
     <>
    <div className="flex flex-wrap mt-[60px] ">
-      {(isLoading) ? "loading ....." : pokemonList.map((p) => <Pokemon name = {p.name} image = {p.image} key={p.id} />)}
+      {(isLoading) ? "loading ....." : pokemonList.map((p) => <Pokemon name = {p.name} image = {p.image} key={p.id} id = {p.id}/>)}
       </div>
       <div>
         <button className="w-[130px] h-[50px] bg-gray-300  mx-[50px] my-[50px] hover:bg-[#f5f5dc] border-[8px] border-black-300 border-double" disabled={preurl == null} onClick={() => setPokedexurl(preurl)}>Prev</button>
